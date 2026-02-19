@@ -455,7 +455,7 @@ public final class ParakeetModel: Module, STTGenerationModel {
     }
 }
 
-public extension ParakeetModel {
+extension ParakeetModel {
     private static func normalizedConfigData(_ rawData: Data) -> Data {
         guard var text = String(data: rawData, encoding: .utf8) else {
             return rawData
@@ -468,7 +468,7 @@ public extension ParakeetModel {
         return Data(text.utf8)
     }
 
-    static func fromDirectory(_ modelDir: URL) throws -> ParakeetModel {
+    public static func fromDirectory(_ modelDir: URL) throws -> ParakeetModel {
         let configURL = modelDir.appendingPathComponent("config.json")
         let rawConfigData = try Data(contentsOf: configURL)
         let configData = normalizedConfigData(rawConfigData)
@@ -556,7 +556,7 @@ public extension ParakeetModel {
         return model
     }
 
-    static func fromPretrained(_ modelPath: String) async throws -> ParakeetModel {
+    public static func fromPretrained(_ modelPath: String) async throws -> ParakeetModel {
         let hfToken: String? = ProcessInfo.processInfo.environment["HF_TOKEN"]
             ?? Bundle.main.object(forInfoDictionaryKey: "HF_TOKEN") as? String
 
